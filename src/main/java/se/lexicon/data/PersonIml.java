@@ -1,12 +1,15 @@
-package se.lexicon.Dao;
+package se.lexicon.data;
 
+import se.lexicon.data.People;
 import se.lexicon.model.Person;
 
 import java.util.Collection;
 
-public class PersonIml implements People{
+public class PersonIml implements People {
     @Override
     public Person create(Person person) {
+
+
         return null;
     }
 

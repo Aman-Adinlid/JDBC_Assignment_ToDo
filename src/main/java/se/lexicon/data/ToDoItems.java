@@ -1,4 +1,4 @@
-package se.lexicon.Dao;
+package se.lexicon.data;
 
 import com.sun.xml.internal.bind.v2.TODO;
 import se.lexicon.model.Person;
