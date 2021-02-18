@@ -4,35 +4,48 @@ import java.util.Objects;
 
 public class Person {
 
-    private int id;
-    private String name;
+    private int personId;
+    private String firstname;
+    private String lastName;
 
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Person(String name) {
-        this.name = name;
-    }
 
     public Person() {
     }
 
-    public int getId() {
-        return id;
+    public Person(int personId, String firstname, String lastName) {
+        this.personId = personId;
+        this.firstname = firstname;
+        this.lastName = lastName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Person(String firstname, String lastName) {
+        this.firstname = firstname;
+        this.lastName = lastName;
     }
 
-    public String getName() {
-        return name;
+
+    public int getPersonId() {
+        return personId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -40,19 +53,20 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && Objects.equals(name, person.name);
+        return personId == person.personId && Objects.equals(firstname, person.firstname) && Objects.equals(lastName, person.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(personId, firstname, lastName);
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "personId=" + personId +
+                ", firstname='" + firstname + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }
