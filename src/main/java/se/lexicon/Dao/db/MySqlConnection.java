@@ -1,4 +1,4 @@
-package se.lexicon.db;
+package se.lexicon.Dao.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,6 @@ public class MySqlConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/world";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
-
 
     public static Connection getConnection() {
         Connection connection = null;
