@@ -60,7 +60,27 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public ToDoItem findById(int todoId) {
-        return null;
+        String query = "select * from todoItem where todoId = ?";
+        ToDoItem todoItem = new ToDoItem();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setInt(1, todoId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                todoItem.setTodoId(resultSet.getInt(1));
+                todoItem.setTitle(resultSet.getString(2));
+                todoItem.setDescription(resultSet.getString(3));
+                todoItem.setDeadLine(resultSet.getDate(4).toLocalDate());
+                todoItem.setDone(resultSet.getBoolean(5));
+                todoItem.setAssigneeId(resultSet.getInt(6));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return todoItem;
     }
 
     @Override
