@@ -3,7 +3,6 @@ package se.lexicon.data;
 import se.lexicon.Dao.db.MySqlConnection;
 import se.lexicon.model.Person;
 
-import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
