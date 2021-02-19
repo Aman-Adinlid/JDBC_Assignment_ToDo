@@ -195,6 +195,8 @@ public class ToDoItIml implements ToDoItems {
             preparedStatement.setBoolean(4, todo.isDone());
             preparedStatement.setInt(5, todo.getAssigneeId());
             preparedStatement.setInt(6, todo.getTodoId());
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "TodoItem updated" : "TodoItem not updated");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -203,6 +205,6 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public boolean deleteById(int todoId) {
-        return false;
+
     }
 }
