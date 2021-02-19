@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.Callable;
 
 
 public class ToDoItIml implements ToDoItems {
@@ -28,7 +27,7 @@ public class ToDoItIml implements ToDoItems {
             preparedStatement.setInt(5, todo.getAssigneeId());
             int resultSet = preparedStatement.executeUpdate();
             System.out.println((resultSet == 1) ? "TodoItem added to list" : "todoItem not added to list");
-            ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
+            ResultSet set = preparedStatement.getGeneratedKeys();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +79,6 @@ public class ToDoItIml implements ToDoItems {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return todoItem;
     }
 
@@ -110,7 +108,6 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public Collection<ToDoItem> findByAssignee(int assigneeId) {
-
         String query = "select * from todoItem where assigneeId = ?";
         Collection<ToDoItem> toDoItems = new ArrayList<>();
         try (
@@ -205,7 +202,6 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public boolean deleteById(int todoId) {
-
         String query = "delete from todoItem where todoId = ?";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
