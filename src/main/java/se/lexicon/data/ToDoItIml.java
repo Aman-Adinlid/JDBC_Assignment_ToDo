@@ -1,54 +1,53 @@
 package se.lexicon.data;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import se.lexicon.data.ToDoItems;
 import se.lexicon.model.Person;
-
-import java.util.Collection;
+import se.lexicon.model.ToDoItem;
+import java.util.List;
 
 public class ToDoItIml implements ToDoItems {
+
     @Override
-    public TODO create(TODO todo) {
+    public ToDoItem create(ToDoItem todo) {
         return null;
     }
 
     @Override
-    public Collection<TODO> findAll() {
+    public List<ToDoItem> findAll() {
         return null;
     }
 
     @Override
-    public TODO findById(int id) {
+    public ToDoItem findById(int todoId) {
         return null;
     }
 
     @Override
-    public Collection<TODO> findByDoneStatus(boolean todo) {
+    public List<ToDoItem> findByDoneStatus(boolean done) {
         return null;
     }
 
     @Override
-    public Collection<TODO> findByAssignee(int todo) {
+    public List<ToDoItem> findByAssignee(int assigneeId) {
         return null;
     }
 
     @Override
-    public Collection<TODO> findByAssignee(Person person) {
+    public List<ToDoItem> findByAssignee(Person person) {
         return null;
     }
 
     @Override
-    public Collection<TODO> findByUnAssigneeToDoItems() {
+    public List<ToDoItem> findByUnassignedTodoItems() {
         return null;
     }
 
     @Override
-    public TODO update(TODO todo) {
+    public ToDoItem update(ToDoItem todo) {
         return null;
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean deleteById(int todoId) {
         return false;
     }
 }
