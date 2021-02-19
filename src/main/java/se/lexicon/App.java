@@ -84,7 +84,7 @@ public class App {
 
 
         //delete
-        dao1.deleteById(2);
+       // dao1.deleteById(2);
 
     }
 }
