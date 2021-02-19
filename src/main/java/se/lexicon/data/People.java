@@ -10,13 +10,13 @@ public interface People {
 
     Collection<Person> findAll();
 
-    Person findById(int id);
+    Person findById(int personId);
 
     Collection<Person> findByName(String Name);
 
     Person update(Person person);
 
-    boolean deleteById(int id);
+    boolean deleteById(int personId);
 
 
 }

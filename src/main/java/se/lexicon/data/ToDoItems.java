@@ -1,28 +1,30 @@
 package se.lexicon.data;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import se.lexicon.model.Person;
+import se.lexicon.model.ToDoItem;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ToDoItems {
 
-    TODO create(TODO todo);
+    ToDoItem create(ToDoItem todo);
 
-    Collection<TODO> findAll();
+    Collection<ToDoItem> findAll();
 
-    TODO findById(int id);
+    ToDoItem findById(int todoId);
 
-    Collection<TODO> findByDoneStatus(boolean todo);
+    Collection<ToDoItem> findByDoneStatus(boolean done);
 
-    Collection<TODO> findByAssignee(int todo);
+    Collection<ToDoItem> findByAssignee(int assigneeId);
 
-    Collection<TODO> findByAssignee(Person person);
+    Collection<ToDoItem> findByAssignee(Person person);
 
-    Collection<TODO> findByUnAssigneeToDoItems();
+    Collection<ToDoItem> findByUnassignedTodoItems();
 
-    TODO update(TODO todo);
+    ToDoItem update(ToDoItem todo);
 
-    boolean deleteById(int id);
+    boolean deleteById(int todoId);
+
 
 }
