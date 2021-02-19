@@ -206,5 +206,16 @@ public class ToDoItIml implements ToDoItems {
     @Override
     public boolean deleteById(int todoId) {
 
+        String query = "delete from todoItem where todoId = ?";
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setInt(1, todoId);
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "TodoItem deleted from list" : "TodoItem not deleted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }
