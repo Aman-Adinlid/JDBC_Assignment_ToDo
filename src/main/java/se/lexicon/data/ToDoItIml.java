@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 public class ToDoItIml implements ToDoItems {
 
@@ -24,7 +26,6 @@ public class ToDoItIml implements ToDoItems {
             preparedStatement.setBoolean(4, todo.isDone());
             preparedStatement.setInt(5, todo.getAssigneeId());
             int resultSet = preparedStatement.executeUpdate();
-
             System.out.println((resultSet == 1) ? "TodoItem added to list" : "todoItem not added to list");
             ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
 
@@ -36,8 +37,25 @@ public class ToDoItIml implements ToDoItems {
     }
 
     @Override
-    public List<ToDoItem> findAll() {
-        return null;
+    public Collection<ToDoItem> findAll() {
+        String query = "select * from todoItem";
+        Collection<ToDoItem> toDoItemList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                toDoItemList.add(new ToDoItem(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3).toLocalDate(),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toDoItemList;
     }
 
     @Override
@@ -46,22 +64,22 @@ public class ToDoItIml implements ToDoItems {
     }
 
     @Override
-    public List<ToDoItem> findByDoneStatus(boolean done) {
+    public Collection<ToDoItem> findByDoneStatus(boolean done) {
         return null;
     }
 
     @Override
-    public List<ToDoItem> findByAssignee(int assigneeId) {
+    public Collection<ToDoItem> findByAssignee(int assigneeId) {
         return null;
     }
 
     @Override
-    public List<ToDoItem> findByAssignee(Person person) {
+    public Collection<ToDoItem> findByAssignee(Person person) {
         return null;
     }
 
     @Override
-    public List<ToDoItem> findByUnassignedTodoItems() {
+    public Collection<ToDoItem> findByUnassignedTodoItems() {
         return null;
     }
 

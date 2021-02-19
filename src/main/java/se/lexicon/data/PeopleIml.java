@@ -24,7 +24,6 @@ public class PeopleIml implements People {
             preparedStatement.setString(2, person.getFirstname());
             preparedStatement.setString(3, person.getLastName());
             preparedStatement.executeUpdate();
-
             person = person;
 
         } catch (SQLException e) {
@@ -37,7 +36,7 @@ public class PeopleIml implements People {
     @Override
     public Collection<Person> findAll() {
         String query = "select * from person";
-        List<Person> personList = new ArrayList<>();
+        Collection<Person> personList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();

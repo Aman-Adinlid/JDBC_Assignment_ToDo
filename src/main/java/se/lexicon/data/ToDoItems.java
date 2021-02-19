@@ -2,23 +2,25 @@ package se.lexicon.data;
 
 import se.lexicon.model.Person;
 import se.lexicon.model.ToDoItem;
+
+import java.util.Collection;
 import java.util.List;
 
 public interface ToDoItems {
 
     ToDoItem create(ToDoItem todo);
 
-    List<ToDoItem> findAll();
+    Collection<ToDoItem> findAll();
 
     ToDoItem findById(int todoId);
 
-    List<ToDoItem> findByDoneStatus(boolean done);
+    Collection<ToDoItem> findByDoneStatus(boolean done);
 
-    List<ToDoItem> findByAssignee(int assigneeId);
+    Collection<ToDoItem> findByAssignee(int assigneeId);
 
-    List<ToDoItem> findByAssignee(Person person);
+    Collection<ToDoItem> findByAssignee(Person person);
 
-    List<ToDoItem> findByUnassignedTodoItems();
+    Collection<ToDoItem> findByUnassignedTodoItems();
 
     ToDoItem update(ToDoItem todo);
 
