@@ -6,31 +6,35 @@ import se.lexicon.model.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
 
 public class PeopleIml implements People {
 
     @Override
     public Person create(Person person) {
-
-        String query = "insert into person(personId,firstName,lastName) values(?,?,?)";
+        String query = "insert into person (firstName, lastName) values (?,?)";
         try (
-                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ) {
+            preparedStatement.setString(1, person.getFirstname());
+            preparedStatement.setString(2, person.getLastName());
 
-            preparedStatement.setInt(1, person.getPersonId());
-            preparedStatement.setString(2, person.getFirstname());
-            preparedStatement.setString(3, person.getLastName());
-            preparedStatement.executeUpdate();
-            person = person;
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet==1) ? "New Person added successfully to database" : "Not ok");
+            ResultSet set = preparedStatement.getGeneratedKeys();
+            int idKey = 0;
+            while (set.next()) {
+                idKey = set.getInt(1);
+            }
+            person.setPersonId(idKey);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return person;
-
     }
 
     @Override
@@ -44,8 +48,7 @@ public class PeopleIml implements People {
                 personList.add(new Person(
                         resultSet.getInt(1),
                         resultSet.getString(2),
-                        resultSet.getString(3)
-                ));
+                        resultSet.getString(3)));
 
             }
         } catch (SQLException e) {
@@ -73,7 +76,6 @@ public class PeopleIml implements People {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return person;
     }
 
@@ -116,7 +118,6 @@ public class PeopleIml implements People {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return person;
     }
 
@@ -125,6 +126,7 @@ public class PeopleIml implements People {
         String query = "delete from person where personId= ?";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+
         ) {
 
             preparedStatement.setInt(1, personId);
@@ -134,8 +136,6 @@ public class PeopleIml implements People {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
 }
