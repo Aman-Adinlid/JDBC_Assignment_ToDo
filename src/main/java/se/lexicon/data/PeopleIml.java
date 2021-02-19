@@ -23,11 +23,11 @@ public class PeopleIml implements People {
             preparedStatement.setString(2, person.getLastName());
 
             int resultSet = preparedStatement.executeUpdate();
-            System.out.println((resultSet == 1) ? "New person added to database" : "Person not ok");
-            ResultSet rs = preparedStatement.getGeneratedKeys();
+            System.out.println((resultSet==1) ? "New Person added successfully to database" : "Not ok");
+            ResultSet set = preparedStatement.getGeneratedKeys();
             int idKey = 0;
-            while (rs.next()) {
-                idKey = rs.getInt(1);
+            while (set.next()) {
+                idKey = set.getInt(1);
             }
             person.setPersonId(idKey);
 
@@ -126,6 +126,7 @@ public class PeopleIml implements People {
         String query = "delete from person where personId= ?";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+
         ) {
 
             preparedStatement.setInt(1, personId);
