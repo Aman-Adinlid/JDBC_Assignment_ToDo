@@ -85,7 +85,26 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public Collection<ToDoItem> findByDoneStatus(boolean done) {
-        return null;
+        String query = "select * from todoItem where done = ?";
+        Collection<ToDoItem> toDoItemArrayList = new ArrayList<>();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setBoolean(1, done);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                toDoItemArrayList.add(new ToDoItem(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3).toLocalDate(),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toDoItemArrayList;
     }
 
     @Override
