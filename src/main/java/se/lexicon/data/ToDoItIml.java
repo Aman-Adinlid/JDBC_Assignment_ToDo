@@ -185,7 +185,20 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public ToDoItem update(ToDoItem todo) {
-        return null;
+        String query = "update todoItem set title=?, description=?, deadline=?, done=?, assigneeId=? where todoId= ?";
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setString(1, todo.getTitle());
+            preparedStatement.setString(2, todo.getDescription());
+            preparedStatement.setString(3, todo.getDeadLine().toString());
+            preparedStatement.setBoolean(4, todo.isDone());
+            preparedStatement.setInt(5, todo.getAssigneeId());
+            preparedStatement.setInt(6, todo.getTodoId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return todo;
     }
 
     @Override
