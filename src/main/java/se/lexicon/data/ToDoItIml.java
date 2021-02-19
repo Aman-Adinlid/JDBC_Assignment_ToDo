@@ -109,7 +109,28 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public Collection<ToDoItem> findByAssignee(int assigneeId) {
-        return null;
+
+        String query = "select * from todoItem where assigneeId = ?";
+        Collection<ToDoItem> toDoItems = new ArrayList<>();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setInt(1, assigneeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                toDoItems.add(new ToDoItem(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3).toLocalDate(),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toDoItems;
     }
 
     @Override
