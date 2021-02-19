@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.Callable;
 
 
 public class ToDoItIml implements ToDoItems {
@@ -160,7 +161,26 @@ public class ToDoItIml implements ToDoItems {
 
     @Override
     public Collection<ToDoItem> findByUnassignedTodoItems() {
-        return null;
+        String query = "Select * from todoItem where UnassignedId = null";
+        Collection<ToDoItem> toDoItemCollection = new ArrayList<>();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                toDoItemCollection.add(new ToDoItem(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3).toLocalDate(),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toDoItemCollection;
     }
 
     @Override
